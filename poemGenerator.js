@@ -9,7 +9,7 @@ var endSpan = " </span>";
 var cssLink = document.createElement("link");
 cssLink.rel = "stylesheet";
 cssLink.type = "text/css";
-cssLink.href = "poemStyles.css";
+cssLink.href = "https://github.com/mtaylor62831/poem-project/blob/master/poemStyles.css";
 head.appendChild(cssLink);
 
 
@@ -50,3 +50,4 @@ function UpdateText(content){
     }
     return newText;
 }
+
