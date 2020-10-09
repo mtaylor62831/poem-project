@@ -1,40 +1,38 @@
+(function(){
 //global vars
-var paragraphs = document.getElementsByTagName("p");
+var paragraphs = document.getElementsByTagName('p');
 var threshold = 0.95;
-var head = document.getElementsByTagName("head")[0];
 
 //access the text in each paragraph
 for (var i = 0; i < paragraphs.length; i++){
     var pContent = paragraphs[i].textContent;
-    paragraphs[i].innerHTML = UpdateText(pContent);
+    var bgColor = getComputedStyle(paragraphs[i]).getPropertyValue('color');
+    paragraphs[i].innerHTML = UpdateText(pContent, bgColor);
 }
 
 //run through the string text of each p
-function UpdateText(content){
+function UpdateText(content, bgColor){
     //parse words by splitting on spaces
-    var newText = "";
-    var bgColor = getComputedStyle(content).getPropertyValue("color");
-    var startSpan = "<span style=\"background:" + bgColor+ " \";
-    var endSpan = " </span>";
+    var newText = '';
+    var startSpan = '<span style="background-color:' + bgColor + ';">';
+    var endSpan = ' </span>';
     var openSpan = false;
-    var blackout = false;
-    var words = content.split(" ");
+    var words = content.split(' ');
     for(var i = 0; i < words.length; i++){
-        //for each word determine if it gets blacked out
+        //if we beat the random threshhold keep word visible
         if (Math.random() > threshold){
-            blackout = false;
-            //the word is selected
-            //when the span is open close it and append the word
+            //close the blackout span if it is currently open
             if(openSpan){
                 newText += endSpan + words[i];
                 openSpan = false;
             } else {
-                newText += " " + words[i];
+                newText += ' ' + words[i];
             }
+        //if we don't beat the threshold then blackout
         } else {
-            blackout = true;
             if (openSpan) {
-                newText += " " + words[i];
+                newText += ' ' + words[i];
+            //open a new blackout span if needed
             } else {
                 newText += startSpan;
                 openSpan = true;
@@ -43,4 +41,4 @@ function UpdateText(content){
     }
     return newText;
 }
-
+})();
