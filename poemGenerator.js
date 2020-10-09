@@ -1,17 +1,7 @@
+//global vars
 var paragraphs = document.getElementsByTagName("p");
 var threshold = 0.95;
 var head = document.getElementsByTagName("head")[0];
-var startSpan = "<span class = \"blackout\">";
-var endSpan = " </span>";
-
-
-//add the CSS file to the document
-var cssLink = document.createElement("link");
-cssLink.rel = "stylesheet";
-cssLink.type = "text/css";
-cssLink.href = "https://github.com/mtaylor62831/poem-project/blob/master/poemStyles.css";
-head.appendChild(cssLink);
-
 
 //access the text in each paragraph
 for (var i = 0; i < paragraphs.length; i++){
@@ -23,6 +13,9 @@ for (var i = 0; i < paragraphs.length; i++){
 function UpdateText(content){
     //parse words by splitting on spaces
     var newText = "";
+    var bgColor = getComputedStyle(content).getPropertyValue("color");
+    var startSpan = "<span style=\"background:" + bgColor+ " \";
+    var endSpan = " </span>";
     var openSpan = false;
     var blackout = false;
     var words = content.split(" ");
